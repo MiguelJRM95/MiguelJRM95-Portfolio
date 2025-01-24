@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
 @theme {
+  /*Breakpoints*/
   --breakpoint-xl: 94rem; /* 1500px */
   --breakpoint-l: 67.5rem; /* 1080px */
   --breakpoint-mobile: 50rem;
+
+  /*Colors*/
+  --color-backgound: #0b101f;
+  --color-primary-text: #c9cedb;
+  --color-accent: #0b101f;
 }
