@@ -1,47 +1,69 @@
 import { useState } from "react";
 import "./App.css";
-import ExpandableCell from "./components/cell/ExpandableCell";
+
+type ElementId = "about-me" | "skills" | "proyects" | "resume" | "contact";
 
 function App() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [selected, setSelected] = useState<ElementId | null>(null);
+
+  const toggleExpansion = (element: ElementId | null) => {
+    console.log(element);
+    if (!selected || selected !== element) {
+      setSelected(element);
+      return;
+    }
+    setSelected(null);
+  };
+
   return (
     <main
       id="layout"
-      className="l:px-10 l:grid-rows-[1fr_1fr_auto] bg-backgound/90 grid h-screen place-items-center gap-3 px-3 py-5 sm:grid-cols-1 sm:px-5 md:grid-cols-2 md:px-10 xl:px-25"
+      className="bg-backgound/90 items-center justify-center gap-6 sm:flex-col sm:overflow-scroll md:flex md:h-screen md:flex-row md:p-6"
     >
-      <section
-        id="about-me"
-        className={`text-primary-text col-start-1 col-end-2 row-span-2 h-full w-full p-3 text-2xl font-bold ${hovered === 2 ? "hidden" : null}`}
+      <div
+        id="left-bento-box"
+        className={`flex h-[100%] flex-col overflow-y-hidden sm:w-full sm:pt-6 md:w-[40%] md:pt-0 ${selected === "skills" ? "" : "gap-6"}`}
       >
-        About Me
-      </section>
-      <ExpandableCell
-        id="portfolio"
-        meta-expandable="true"
-        className="text-primary-text bg-accent h-full w-full rounded-3xl p-3 text-2xl font-bold"
+        <div
+          id="about-me"
+          className={`text-primary-text text-2xl font-bold transition-all duration-400 ${selected === "skills" ? "srink h-[0px]" : "h-3/4"}`}
+        >
+          ABOUT ME
+        </div>
+        <div
+          id="skills"
+          className={`text-primary-text bg-accent rounded-3xl text-2xl font-bold transition-all duration-400 ${selected === "skills" ? "h-full" : "h-1/4"}`}
+          onClick={() => toggleExpansion("skills")}
+        >
+          SKILLS
+        </div>
+      </div>
+      <div
+        id="right-bento-box"
+        className={`flex h-[100%] flex-col overflow-y-hidden rounded-3xl text-2xl font-bold sm:w-full sm:pb-6 md:w-[60%] md:pb-0 ${selected === "contact" || selected === "proyects" || selected === "resume" ? "" : "gap-6"}`}
       >
-        Portfolio
-      </ExpandableCell>
-      <ExpandableCell
-        id="resume"
-        meta-expandable="true"
-        className="text-primary-text bg-accent h-full w-full rounded-3xl p-3 text-2xl font-bold"
-      >
-        Resume
-      </ExpandableCell>
-      <section
-        id="skills"
-        className={`text-primary-text bg-accent h-full w-full rounded-3xl p-3 text-2xl font-bold transition-all duration-500 sm:col-start-1 md:col-end-2 ${hovered === 2 ? "h-full md:row-start-1 md:row-end-4" : "md:row-start-3"}`}
-        onClick={() => setHovered(2)}
-      >
-        Skills
-      </section>
-      <section
-        id="contact"
-        className="text-primary-text bg-accent l:h-70 h-full w-full rounded-3xl p-3 text-2xl font-bold sm:col-start-1 md:col-start-2 md:row-start-3"
-      >
-        Contact
-      </section>
+        <div
+          id="proyects"
+          className={`text-primary-text bg-accent rounded-3xl text-2xl font-bold transition-all duration-400 ${selected === "contact" || selected === "resume" ? "srink h-[0px] opacity-0" : ""} ${selected === "proyects" ? "h-full" : "h-3/8"}`}
+          onClick={() => toggleExpansion("proyects")}
+        >
+          PROYECTS
+        </div>
+        <div
+          id="resume"
+          className={`text-primary-text bg-accent rounded-3xl text-2xl font-bold transition-all duration-400 ${selected === "contact" || selected === "proyects" ? "srink h-[0px] opacity-0" : ""} ${selected === "resume" ? "h-full" : "h-3/8"}`}
+          onClick={() => toggleExpansion("resume")}
+        >
+          RESUME
+        </div>
+        <div
+          id="contact"
+          className={`text-primary-text bg-accent rounded-3xl text-2xl font-bold transition-all duration-400 ${selected === "resume" || selected === "proyects" ? "srink h-[0px] opacity-0" : ""} ${selected === "contact" ? "h-full" : "h-2/8"}`}
+          onClick={() => toggleExpansion("contact")}
+        >
+          CONTACT
+        </div>
+      </div>
     </main>
   );
 }
