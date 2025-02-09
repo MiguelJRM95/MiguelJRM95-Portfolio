@@ -2,6 +2,7 @@ import "./App.css";
 import BentoBoxSideWrapper from "./components/bento-box-side-wrapper/BentoBoxSideWrapper";
 import PortfolioSection from "./components/portfolio-section/PortfolioSection";
 import { useSelectSection } from "./components/portfolio-section/useSelectedSection";
+import AboutMe from "./components/sections/AboutMe";
 
 function App() {
   const { selected, selectSection } = useSelectSection();
@@ -17,9 +18,9 @@ function App() {
       >
         <section
           id="about-me-wrapper"
-          className={`text-primary-text text-2xl font-bold transition-all duration-400 ${selected === "skills" ? "srink h-[0px]" : "h-3/4"}`}
+          className={`text-primary-text text-xl transition-all duration-400 ${selected === "skills" ? "srink h-[0px]" : "h-3/4"}`}
         >
-          ABOUT ME
+          <AboutMe />
         </section>
         <PortfolioSection
           portfolioSection="skills"
